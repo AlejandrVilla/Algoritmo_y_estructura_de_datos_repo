@@ -18,10 +18,16 @@ int fd1(string key, int n)          // prueba
     return s%n;
 }
 
-// int FHash( string key, int n )      // funcion que transforma el genoma en una posicion
-// {
-//     cout<<"funcion hash";
-// }
+int FHash( string key, int n )      // funcion que transforma el genoma en una posicion
+{
+    int pos=0;
+    int primo=31;
+    for( int i=0 ; i<key.size() ; ++i )
+    {
+        pos = (primo*pos + (int)key[i]) %n;
+    }
+    return pos;
+}
 
 string leer( string dir )          // leer archivo y retorna cadena
 {
@@ -39,12 +45,13 @@ string leer( string dir )          // leer archivo y retorna cadena
 
 int main()
 {
-    // Hash<int, string, fd1> Tabla;
+    Hash<int,string, FHash> Tabla;         // almacena string (clave) y int (valor)
     string genoma = leer("sequence.fasta");
     for( int i=0 ; i<genoma.size() ; i+=7 )
-        cout<<genoma.substr(i,7)<<' ';
-        // Tabla.Add( i , genoma.substr(i,7) );
-    
+        Tabla.Add( i , genoma.substr(i,7) );
+    // for( int i=0,j=0 ; j<30 ; i+=7 ,j++)
+    //     Tabla.Add( i , genoma.substr(i,7) );
+
     return 1;
 };
 
