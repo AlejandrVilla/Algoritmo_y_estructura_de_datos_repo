@@ -21,8 +21,8 @@ public:
     void rHash();               // reconstruye la tabla hash
     int sigPrimo(int);          
 
+    void find(K);               // busca genoma 
     void Delete(K);             // ingresa string del genoma a eliminar
-    O find(K);                  // busca genoma 
 };
 
 template <class O, class K, int (*fd)(std::string, int), const int size>
@@ -65,7 +65,7 @@ void Hash<O, K, fd, size>::rHash()                                          // f
     m_List.resize(newN);                                                    // agranda el vector
     n=0;                                                                    // cantidad de datos 0
     m = newN;                                                               // nueva cantidad de celdas 
-    for( int i=0 ; i<aux.size() ; ++i )                                     // 
+    for( int i=0 ; i<aux.size() ; ++i )                                      
     {
         typename std::list<std::pair<O,K>>::iterator it = aux[i].begin();
         for( ; it != aux[i].end() ; ++it )
@@ -91,6 +91,56 @@ int Hash<O, K, fd, size>::sigPrimo( int n )
             break;
     }
     return primo;
+}
+
+template <class O, class K, int (*fd)(std::string, int), const int size>
+void Hash< O ,K ,fd,size >::find( K key )
+{
+    int pos = fd( key , m );
+    bool c = 0;
+    if( m_List[pos].size() > 0 )
+    {
+        typename std::list<std::pair<O,K>>::iterator it = m_List[pos].begin();
+        for( ; it!=m_List[pos].end() ; ++it )
+        {
+            if( it->second == key )
+            {
+                std::cout<<it->first<<' ';
+                c=1;
+            }
+        }
+        if( !c )
+            std::cout<<"NO HAY REGISTROS GUARDADOS CON ESA CLAVE";
+        std::cout<<'\n';
+    }
+    else
+        std::cout<<"NO HAY REGISTROS GUARDADOS CON ESA CLAVE\n";
+}
+
+template <class O, class K, int (*fd)(std::string, int), const int size>
+void Hash< O ,K ,fd,size >::Delete(  K key )
+{
+    int pos = fd( key , m );
+    bool c = 0;
+    if( m_List[pos].size() > 0 )
+    {
+        typename std::list<std::pair<O,K>>::iterator it = m_List[pos].begin();
+        for( ; it!=m_List[pos].end() ; ++it )
+        {
+            if( it->second == key )
+            {
+                m_List[pos].remove(*it);
+                c=1;
+            }
+        }
+        if( !c )
+            std::cout<<"NO HAY REGISTROS GUARDADOS CON ESA CLAVE";
+        else    
+            std::cout<<"SE ELIMINARON LOS REGISTROS";
+        std::cout<<'\n';
+    }
+    else
+        std::cout<<"NO HAY REGISTROS GUARDADOS CON ESA CLAVE\n";
 }
 
 #endif
