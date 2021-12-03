@@ -20,6 +20,7 @@ public:
     T buscarMayor(T);
     T buscarMenor(T);
     void mostrar();
+    int Intercambiar_Fils(int, int);
 };
 
 template<typename T,const int n_Fil,const int n_Col>
@@ -140,5 +141,31 @@ void SparseMatrix<T,n_Fil,n_Col>::mostrar()
     }
 }
 
+template<typename T,const int n_Fil,const int n_Col>
+int SparseMatrix<T,n_Fil,n_Col>::Intercambiar_Fils(int f1, int f2)
+{
+    int c=0;
+    std::swap( m_Fil[f1] , m_Fil[f2] );
+    Cell<T> *p = m_Fil[f1];
+    Cell<T> *q = m_Fil[f2];
+    for(; ; )
+    {
+        if( p->m_SigCol == nullptr && q->m_SigCol == nullptr )
+            break;
+        p->m_Fil = f1;
+        q->m_Fil = f2;
+        if( p->m_Col == q->m_Col )
+        {
+            std::cout<<"llego\n";
+            std::swap( p->m_Dato , q->m_Dato );
+            c++;
+        }
+        else if( p->m_Col < q->m_Col && p->m_SigCol )
+            p = p->m_SigCol;
+        else if ( p->m_Col > q->m_Col && q->m_SigCol )
+            q = q->m_SigCol;
+    }
+    return c;
+}
 
 #endif
