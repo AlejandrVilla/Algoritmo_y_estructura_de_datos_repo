@@ -17,16 +17,15 @@ public:
     void Insert_Vertex(V);
     void Insert_Arista(V , V , E );
 
-    void delete_vertex(V);              // falta  
-    void delete_Arista(V , V , E );      // falta
+    void delete_vertex(V);                
+    void delete_Arista(V , V , E );      
     bool esVacio();             
     bool existeVertex(V);       
     bool sonAdyacentes(V ,V);   
 
     void verAdyacencias();
 
-    void graficar(std::string);         // falta              
-
+    void graficar(std::string);        
 };
 
 template<class V,class E>
