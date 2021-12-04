@@ -1,0 +1,16 @@
+graph G{
+Arequipa;
+Arequipa -- Cuzco[label=250];
+Arequipa -- Puno[label=200];
+Arequipa -- Lima[label=160];
+Arequipa -- Moquegua[label=160];
+Lima;
+Lima -- Ica[label=100];
+Cuzco;
+Puno;
+Puno -- Moquegua[label=160];
+Ica;
+Tacna;
+Tacna -- Moquegua[label=160];
+Moquegua;
+}

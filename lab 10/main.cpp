@@ -42,5 +42,33 @@ int main()
     cout<<"\nCOMPROBANDO SI LIMA Y PUNO SON ADYACENTES\n";
     cout<<G.sonAdyacentes("Lima","Puno");
 
+    cout<<"\nGRAFICANDO GRAFO INICIAL\n";
+    G.graficar("grafoAntes1.dot");
+    system("dot grafoAntes1.dot -o grafoAntes1.png -Tpng");           //dot grafo.dot -o grafo.png -Tpng
+    system("grafoAntes1.png");
+
+    cout<<"\nELIMINANDO ARISTA (Arequipa, Lima, 160)\n";
+    G.delete_Arista("Arequipa","Lima",160);
+
+    cout<<"\nMOSTRANDO LISTA DE ADYACENCIA\n";
+    G.verAdyacencias();
+
+    cout<<"\nGRAFICANDO DESPUES DE ELIMINAR ARISTA\n";
+    G.graficar("grafoAntes2.dot");
+    system("dot grafoAntes2.dot -o grafoAntes2.png -Tpng");           //dot grafo.dot -o grafo.png -Tpng
+    system("grafoAntes2.png");
+
+    cout<<"\nELIMINANDO VERTICE Arequipa\n";
+    G.delete_vertex("Arequipa");
+
+    cout<<"\nMOSTRANDO LISTA DE ADYACENCIA\n";
+    G.verAdyacencias();
+
+    cout<<"\nGRAFICANDO DESPUES DE ELIMINAR VERTICE";
+    G.graficar("grafoDespues.dot");
+    system("dot grafoDespues.dot -o grafoDespues.png -Tpng");           //dot grafo.dot -o grafo.png -Tpng
+    system("grafoDespues.png");
+
+
     return 1;
 }

@@ -1,0 +1,11 @@
+graph G{
+Lima;
+Lima -- Ica[label=100];
+Cuzco;
+Puno;
+Puno -- Moquegua[label=160];
+Ica;
+Tacna;
+Tacna -- Moquegua[label=160];
+Moquegua;
+}

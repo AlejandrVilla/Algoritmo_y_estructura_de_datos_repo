@@ -59,6 +59,37 @@ void Grafo<V,E>::Insert_Arista(V v1, V v2, E Ar)
 }
 
 template<class V,class E>
+void Grafo<V,E>::delete_vertex(V dato)
+{
+    Vertex<V,E>* p = find_Vertex(dato);
+    for(auto it = m_grafo.begin(); it!=m_grafo.end() ; ++it)
+    {
+        for(auto it2 = it->m_Aristas.begin() ; it2!=it->m_Aristas.end() ; ++it2)
+        {
+            if(it2->m_pVertes->m_Dato == dato)
+                it->m_Aristas.erase(it2);
+        }
+    }
+    m_grafo.remove(*p);
+}
+
+template<class V,class E>
+void Grafo<V,E>::delete_Arista(V v1, V v2, E dato)
+{
+    for(auto it = m_grafo.begin(); it!=m_grafo.end() ; ++it)
+    {
+        if(it->m_Dato == v1 || it->m_Dato == v2)
+        {
+            for(auto it2 = it->m_Aristas.begin() ; it2!=it->m_Aristas.end() ; ++it2)
+            {
+                if(it2->m_Dato == dato)
+                    it->m_Aristas.erase(it2);
+            }
+        }
+    }
+}
+
+template<class V,class E>
 bool Grafo<V,E>::esVacio()
 {   
     if( m_grafo.size() == 0 )
@@ -101,6 +132,30 @@ void Grafo<V,E>::verAdyacencias()
             std::cout<<"("<<(it2->m_pVertes)->m_Dato<<", "<<it2->m_Dato<<") -> ";
         std::cout<<"\n";
     }
+}
+
+template<class V,class E>
+void Grafo<V,E>::graficar(std::string dir)
+{
+    std::ofstream f;
+    std::unordered_set<V> vertices;
+    f.open(dir);
+    f<<"graph G{\n";
+    for(auto it = m_grafo.begin(); it!=m_grafo.end() ; ++it)
+    {
+        vertices.insert( it->m_Dato );
+        f<<it->m_Dato<<";\n";
+        for(auto it2 = it->m_Aristas.begin() ; it2!=it->m_Aristas.end() ; ++it2)
+        {
+            if( vertices.find( (it2->m_pVertes)->m_Dato ) == vertices.end() )
+            {
+                f<<it->m_Dato<<" -- ";
+                f<<(it2->m_pVertes)->m_Dato<<"[label="<<it2->m_Dato<<"];\n";
+            }
+        }
+    }
+    f<<"}";
+    f.close();
 }
 
 #endif
